@@ -23,6 +23,9 @@ ExportedObj/
 *.svd
 *.pdb
 
+# XCode
+/FIFOXcode
+
 
 # Unity3D generated meta files
 *.pidb.meta

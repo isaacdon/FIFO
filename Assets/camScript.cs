@@ -6,10 +6,23 @@ using UnityEngine.UI;
 public class camScript : MonoBehaviour {
 
 	public Button fireButton;
+	public Button weaponF;
+	public Button weaponS;
+
+	public float fast = 15000f;
+	public float slow = 1800f;
+
+	public float bulletSpeed;
 
 	// Use this for initialization
 	void Start () {
+		bulletSpeed = slow;
+
 		fireButton.onClick.AddListener (fireButtonDown);
+
+		weaponF.onClick.AddListener (weaponFDown);
+		weaponS.onClick.AddListener (weaponSDown);
+
 		StartCoroutine ("EnemyGen");
 	}
 	
@@ -18,17 +31,28 @@ public class camScript : MonoBehaviour {
 		
 	}
 
+	void weaponFDown() {
+		Debug.Log ("fast");
+		bulletSpeed = fast;
+	}
+
+	void weaponSDown() {
+		Debug.Log ("slow");
+		bulletSpeed = slow;
+	}
+
 	void fireButtonDown() {
+		Debug.Log ("fire");
 		GameObject bullet = Instantiate (Resources.Load ("Bullet", typeof(GameObject))) as GameObject;
 		Rigidbody rb = bullet.GetComponent<Rigidbody> ();
 		bullet.transform.rotation = Camera.main.transform.rotation;
 		bullet.transform.position = Camera.main.transform.position;
-		rb.AddForce (Camera.main.transform.forward * 1500f);
+		rb.AddForce (Camera.main.transform.forward * bulletSpeed);
 		Destroy (bullet, 3);
 	}
 
 	IEnumerator EnemyGen() {
-		Random random = new Random ();
+		
 
 		while (true) {
 			yield return new WaitForSeconds (3.5f);
@@ -36,15 +60,13 @@ public class camScript : MonoBehaviour {
 			if (GameObject.FindGameObjectsWithTag ("Enemy").Length == 0) {
 				Debug.Log ("== 0");
 
-				GameObject enemy1 = Instantiate (Resources.Load ("Enemy", typeof(GameObject))) as GameObject;
-				GameObject enemy2 = Instantiate (Resources.Load ("Enemy", typeof(GameObject))) as GameObject;
+				GameObject[] enemies = new GameObject[3];
 
-				GameObject[] enemies = { enemy1, enemy2 };
-
-				for (int i = 0; i < 2; i++) {
+				for (int i = 0; i < enemies.Length; i++) {
+					enemies[i] = Instantiate (Resources.Load ("Enemy", typeof(GameObject))) as GameObject;
 					float x = Random.Range (-5.0f, 5.0f);
 					float y = Random.Range (-5.0f, 5.0f);
-					float z = Random.Range (0.0f, 20.0f);
+					float z = Random.Range (0.0f, 10.0f);
 
 					enemies[i].transform.position = new Vector3 (x, y, z);
 				}

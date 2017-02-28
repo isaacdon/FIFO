@@ -6,6 +6,7 @@ public class enemyScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Debug.Log (GetComponent <EnemyObject>().hp);
 		StartCoroutine ("Move");
 	}
 	
@@ -17,6 +18,9 @@ public class enemyScript : MonoBehaviour {
 	IEnumerator Move() {
 		while (true) {
 			yield return new WaitForSeconds (3.5f);
+
+			
+
 			transform.eulerAngles += new Vector3 (0, 180f, 0);
 		}
 	}
