@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class camScript : MonoBehaviour {
-
+	
 	public Button fireButton;
 	public Button weaponF;
 	public Button weaponS;
@@ -61,7 +61,9 @@ public class camScript : MonoBehaviour {
 				Debug.Log ("== 0");
 
 				GameObject[] enemies = new GameObject[3];
-
+				GameObject[] medKits = new GameObject[1];
+				medKits [0] = Instantiate (Resources.Load ("medKit", typeof(GameObject))) as GameObject;
+				medKits [0].transform.position = new Vector3 (0, 5, 0);
 				for (int i = 0; i < enemies.Length; i++) {
 					enemies[i] = Instantiate (Resources.Load ("Enemy", typeof(GameObject))) as GameObject;
 					float x = Random.Range (-5.0f, 5.0f);
@@ -70,6 +72,7 @@ public class camScript : MonoBehaviour {
 
 					enemies[i].transform.position = new Vector3 (x, y, z);
 				}
+
 
 			} else {
 				Debug.Log ("> 0");
