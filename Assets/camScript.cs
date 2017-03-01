@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class camScript : MonoBehaviour {
 
+	public GameObject radarPlane;
+
 	public Button fireButton;
-	public Button weaponF;
-	public Button weaponS;
+	/*public Button weaponF;
+	public Button weaponS;*/
 
 	public float fast = 15000f;
 	public float slow = 1800f;
@@ -16,12 +18,18 @@ public class camScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+
+
+
 		bulletSpeed = slow;
 
 		fireButton.onClick.AddListener (fireButtonDown);
 
-		weaponF.onClick.AddListener (weaponFDown);
-		weaponS.onClick.AddListener (weaponSDown);
+		/*weaponF.onClick.AddListener (weaponFDown);
+		weaponS.onClick.AddListener (weaponSDown);*/
+
+		Debug.Log ("Cam Start");
 
 		StartCoroutine ("EnemyGen");
 	}
@@ -31,7 +39,7 @@ public class camScript : MonoBehaviour {
 		
 	}
 
-	void weaponFDown() {
+	/*void weaponFDown() {
 		Debug.Log ("fast");
 		bulletSpeed = fast;
 	}
@@ -39,7 +47,7 @@ public class camScript : MonoBehaviour {
 	void weaponSDown() {
 		Debug.Log ("slow");
 		bulletSpeed = slow;
-	}
+	}*/
 
 	void fireButtonDown() {
 		Debug.Log ("fire");
@@ -52,7 +60,7 @@ public class camScript : MonoBehaviour {
 	}
 
 	IEnumerator EnemyGen() {
-		
+		Debug.Log ("EnemyGen");
 
 		while (true) {
 			yield return new WaitForSeconds (3.5f);
