@@ -8,19 +8,22 @@ public class camScript : MonoBehaviour {
 	public GameObject radarPlane;
 
 	public Button fireButton;
+	public Text ammoText;
 	/*public Button weaponF;
 	public Button weaponS;*/
 
 	public float fast = 15000f;
 	public float slow = 1800f;
 
+	public int bulletCounter;
 	public float bulletSpeed;
 
 	// Use this for initialization
 	void Start () {
-
-
-
+		// preset ammo amount
+		bulletCounter = 400;
+		//update to main screen
+		setAmmoText();
 
 		bulletSpeed = slow;
 
@@ -50,13 +53,31 @@ public class camScript : MonoBehaviour {
 	}*/
 
 	void fireButtonDown() {
-		Debug.Log ("fire");
-		GameObject bullet = Instantiate (Resources.Load ("Bullet", typeof(GameObject))) as GameObject;
-		Rigidbody rb = bullet.GetComponent<Rigidbody> ();
-		bullet.transform.rotation = Camera.main.transform.rotation;
-		bullet.transform.position = Camera.main.transform.position;
-		rb.AddForce (Camera.main.transform.forward * bulletSpeed);
-		Destroy (bullet, 3);
+		if (bulletCounter <= 50) {
+			//prompt ammo warning
+		} 
+		if (bulletCounter > 0) {
+			Debug.Log ("fire");
+			GameObject bullet = Instantiate (Resources.Load ("Bullet", typeof(GameObject))) as GameObject;
+			Rigidbody rb = bullet.GetComponent<Rigidbody> ();
+			bullet.transform.rotation = Camera.main.transform.rotation;
+			bullet.transform.position = Camera.main.transform.position;
+			rb.AddForce (Camera.main.transform.forward * bulletSpeed);
+			Destroy (bullet, 3);
+			//decrement ammo
+			bulletCounter -= 1;		
+			//update ui counter
+			setAmmoText();
+		}else {
+			//prompt no ammo, self-detroy 
+		}
+
+
+	}
+
+
+	void setAmmoText(){
+		ammoText.text = "Ammo Left: " + bulletCounter.ToString ();
 	}
 
 	IEnumerator EnemyGen() {
