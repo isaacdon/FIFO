@@ -90,7 +90,9 @@ public class camScript : MonoBehaviour {
 				Debug.Log ("== 0");
 
 				GameObject[] enemies = new GameObject[3];
-
+				GameObject[] medKits = new GameObject[1];
+				medKits [0] = Instantiate (Resources.Load ("medKit", typeof(GameObject))) as GameObject;
+				medKits [0].transform.position = new Vector3 (0f, 2.5f, 5.0f);
 				for (int i = 0; i < enemies.Length; i++) {
 					enemies[i] = Instantiate (Resources.Load ("Enemy", typeof(GameObject))) as GameObject;
 					float x = Random.Range (-5.0f, 5.0f);
